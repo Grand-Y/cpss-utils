@@ -1,0 +1,60 @@
+{
+    "MeetingRoom": {
+      "meetingroom01": {
+        "property": {"length": "20"},
+        "state": {
+          "temperature": "22",
+          "people_count": 3
+        },
+        "adjacentTo": "laboratory01",
+        "reachableTo": null,
+        "Device": {
+          "door001_Door": {
+            "property": null,
+            "state": {
+              "current_door_state": "off"
+            }
+          },
+          "window001_Window": {
+            "property": null,
+            "state": {
+              "current_window_state": "off"
+            }
+          },
+          "tv001_TV": {
+            "property": null,
+            "state": {
+              "current_tv_state": "off"
+            }
+          }
+        }
+      }
+    },
+    "Laboratory": {
+      "laboratory01": {
+        "property": {
+          "length": "20"
+        },
+        "state": {
+          "temperature": "24.9",
+          "humidity": "27.1",
+          "people_count": 18
+        },
+        "adjacentTo": "meetingroom01",
+        "reachableTo": null,
+        "Device": {
+          "speaker001_Speaker": {
+            "action": {
+              "Speak_VoiceMessage": "http://10.176.34.90:12333/speak/laboratory01_speaker001"
+            },
+            "property": {
+              "volume": "1500"
+            },
+            "state": {
+              "current_speaker_state": "off"
+            }
+          }
+        }
+      }
+    }
+  }

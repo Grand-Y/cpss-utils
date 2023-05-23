@@ -1,0 +1,52 @@
+Spring Boot Version: ${spring-boot.version}
+Spring Application Name: ${spring.application.name}
+t
+                                              i1ttfffLttt11.                                         
+                                    iifffLt1ttLLLfftLtfffftffLf1                                     
+                                  :tLfGLLLLLfLLGGtfttLffLfLLftLLfL1                                  
+                                tftffLLfLGLLffLGGfLLLftfLLLfGGCLGLfLt,                               
+                             ,i1ffttLLLfLftL1tfLLLfGLGGfLfGGLLGLCGGLLL1                              
+                           ii;1fftGfLG1ftfffffGLfLfLCCGGLfLGGLfLLLLCLfLf;                            
+                          ;1itttffffLLtLLfLLGLGGLGGGGLLLGfLLLGGfGLGLGffGff,                          
+                         itttttLfLLLCfLLGLGLGLGCGLLGLLLGGGLLGLCGGGLLGCLLLLt.                         
+                        ttfLffLLfGLGGGGGLGGCLGGGGGLLLLLGGCLLLfGCLGLGLGGLLfL:                         
+                        ifLftfLGLGGGCCGGGCLGGGGCGGLGGLLGCGLGLLLCGLGGGLGLLLLf                         
+                        fLLLffGGGGGGCGCLGCGGGGGCGCLGGGGGLGGLLLLGCGGLGLGGGLGL.                        
+                       :tLGGGGGGGGCCGGCGGGGGGGGGGGGGGGGLGGGLGGLGCLGLGGLLGLLf;                        
+                       ftGGCGLLGGGGLLCGGGGGGGGGGGGLLGLLfLLGLGLLLCLGLGGfLGGLLt                        
+                       ffGCGLGfLGCGGGGGGGGGGGGGGGGLLLLGLLGGGGLLGGLLGGGLLGGLLt                        
+                       tfGGLCLffLLGGCGGLLGCGGLftLLLLLLGfLLGLLttfLLLGGLGGGGGL1                        
+                      tffLLLGLL1tLLLGGGGGGGGLt1iifLLLLLGGGLLLttLLfLfGGGGGGLL                         
+                      .fLLLLLGfi1ttfLLLLfLGLf1i;ii1tLGGLfLttfi1tttf;LGGGLL                           
+                        1fLLfLi;:;:;;;;;;;;;;;:::::;;iii;;:,:,,,::::fLL1;;i                          
+                       :1;fff1::::;iLGGG1i;;:,,,,,,::;i1fCfifi;:,,,:tt::::;                          
+                       ;1;;ti::;;1i1;LLf1t;::::,,.,,:;ii1i;;:,::,,,,;i1;::;                          
+                       ,1:;i;::;:::::::;;::;:,,,...,,,:;;;:::,,,,,,,:;iii;;                          
+                        1i11::::::::::::::::,,,,......,,,,,,.,,,,,,,,::;i::                          
+                        :i11;:::::::::::::;::,,,...,..,,........,,,,:;:::;                           
+                         ;;i1:::,,,:::::::::,,,,.....,,,:,,.....,,,,;:::;                            
+                          :i;;:::,,,:::;;:,,,,,,,,,,,.,,::::,,,,,,,,:: ;                             
+                           ;;;:::::::;;:::::;;:;::;;;,,,,:;;:::,,::,, i                              
+                              .::::;;i:::::::;;;;;;::,.,,,:;;:;:::,: ;                               
+                               ;:;:;;;;::::::::::::,,,,,,,:;::::::,  f                               
+                                ::;::;;i1L;,,,..:..,:.:t1::;::::::, .C,                              
+                                 ::::::;:;ii1;::;::;;i::,:,:::::::   C                               
+                                  ;::::::::::::::::,,,,,,,:::::::Cf.                                 
+                                  G::::::::::::::::::,,,,,,,:::;;8CL                                 
+                                 C8i;:::::::::::::::,,,,,,,:;;;;iCCL                                 
+                                ,C881;;::::::::::,,,,.,..,:;;;;1G8CG                                 
+                                 GCC8Ctii:,,:::::,,,.,,,:iiiiifCCCCG                                 
+                                  CC8888GL1;:::::,,,::i1111tGCCCCCCCf                                
+                                  GCC8888888CLffttfffttfGCCCCCCCCCCCffG.                             
+                                 fGCCCCC8888888888888C88CCCCCCCCCCCCGLt1Lfi                          
+                              iLGGGCCCC8C8888888888888888CCC8CCCCCCCCL1fGCCCGGG:                     
+                            fLGGGGGGCC8888888888888888888C88CCCCCCCCCCCGCCCCCCCCCGL1                 
+                        ;fLGGGCCCCCCCC88888888888888888CCCCCCCCCCCCCCCCCCCCCCCCCCCGCGGLf             
+                     tLGGGGGGGGGCCCCCCCCC88888CCC8888888CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCGGGGLi        
+                 1LLLLGGGGGGGGGGGCGCC888CCC88CCCCCCCC88C8C8CCCCCCCCCCCCCCCCCCCCCCCCCCGCCCCGGGGLL1    
+            fLLLGLGGLGLGGGGGGGGGGGGCCCC8CCC88CC88888C888CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCGGGGGLLLft
+        tffLGGGGGGLGGGGGCGGGCCCGCGCCCGCCCCC88CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCGGGGGGGGGGL
+    .tfLLGLLGGGGGGGGGGGGGGGGGGCCCCCCGGGCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCGCCCCGGGGGGGGGGG
+   1LLLLGLGGGGGGGGGGGGGGGGGGGCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCGGCGCGGCGCCGGCGGGGGGGGGG
+  fLLLGGGGGGGGGGGGGGGGGGGGGGGGGGGGGCGCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCGGCCCCGCCGGGGGGGGGCGGGGGGGGGGG
+ tLGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGCCCCCCCCCCCCCCCCCCCCCCCCCCCGCCGGCGGCCCGGCGGGGGGGGGGGGGGGGGGGG

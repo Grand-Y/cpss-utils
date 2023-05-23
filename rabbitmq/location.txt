@@ -1,0 +1,5 @@
+corridor01
+meetingroom02
+meetingroom01
+tearoom01
+laboratory01

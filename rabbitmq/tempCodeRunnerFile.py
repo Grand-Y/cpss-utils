@@ -1,0 +1,1 @@
+queue_names = [e + '.' + l for l in locations for e in events]

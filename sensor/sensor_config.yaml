@@ -1,0 +1,86 @@
+# 实验室
+laboratory01_temperature:
+    name: Temperature_Change
+    object_id: laboratory01
+    state: temperature
+    type: float
+    url: /states/sensor.lumi_lumi_weather_temperature
+
+laboratory01_humidity:
+    name: Humidity_Change
+    object_id: laboratory01
+    state: humidity
+    type: float
+    url: /states/sensor.lumi_lumi_weather_humidity
+
+laboratory01_door:
+    name: Door_State
+    object_id: laboratory01_door001
+    state: current_door_state
+    type: string
+    url: /states/binary_sensor.lumi_lumi_sensor_magnet_aq2_opening
+
+laboratory01_illuminance:
+    name: Light_State
+    object_id: laboratory01_light001
+    state: current_light_state
+    type: string
+    url: /states/sensor.lumi_lumi_sen_ill_mgl01_illuminance
+
+# 2013房间
+# meetingroom01_light:
+#     name: Light_State
+#     object_id: meetingroom01_light001
+#     state: current_light_state
+#     type: string
+#     url: /states/light.cuco_v3_f645_indicator_light
+
+# meetingroom01_door:
+#     name: Door_State
+#     object_id: meetingroom01_door001
+#     state: current_door_state
+#     type: string
+#     url: /states/binary_sensor.lumi_aq2_c1e3_magnet_sensor
+
+# meetingroom01_switch:
+#     name: Switch_State
+#     object_id: meetingroom01_tv001
+#     state: current_tv_state
+#     type: string
+#     url: /states/switch.cuco_v3_f645_switch_2
+
+# 2014-2房间
+meetingroom02_temperature:
+    name: Temperature_Change
+    object_id: meetingroom02
+    state: temperature
+    type: float
+    url: /states/sensor.lumi_lumi_weather_temperature
+
+meetingroom02_humidity:
+    name: Humidity_Change
+    object_id: meetingroom02
+    state: humidity
+    type: float
+    url: /states/sensor.lumi_lumi_weather_humidity
+
+meetingroom02_door:
+    name: Door_State
+    object_id: meetingroom02_door001
+    state: current_door_state
+    type: string
+    url: /states/binary_sensor.lumi_lumi_sensor_magnet_aq2_opening
+
+meetingroom02_illuminance:
+    name: Light_State
+    object_id: meetingroom02_light001
+    state: current_light_state
+    type: string
+    url: /states/sensor.xiaomi_lumi_sen_ill_mgl01_illuminance
+
+meetingroom02_person:
+    name: People_Count
+    object_id: meetingroom02
+    state: people_count
+    type: string
+    url: /states/binary_sensor.lumi_lumi_sensor_motion_iaszone

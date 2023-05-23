@@ -1,0 +1,36 @@
+Space:
+  MeetingRoom:
+    meetingroom01_MeetingRoom:
+      Property: {"length":"20"}
+      State: 	{"temperature":"22","people_count":3}
+      adjacentTo:
+        laboratort01_Laboratory
+      reachableTo:
+      Device:
+        door001_Door:
+          Property:
+          State: {"current_door_state":"off"}
+        window001_Window:
+          Property:
+          State: {"current_window_state":"off"}
+        tv001_TV:
+          Property:
+          State: {"current_tv_state":"off"}
+  Laboratory:
+    laboratort01_Laboratory:
+      Property: {"length":"20"}
+      State: 	{"temperature":"24.9","humidity":"27.1","people_count":18}
+      adjacentTo:
+        meetingroom01_MeetingRoom
+      reachableTo:
+      Device:
+        speaker001_Speaker:
+          Action: 
+            Speak_VoiceMessage: "http://10.176.34.90:12333/speak/laboratory01_speaker001"
+          Property: {"volume" : "1500"}
+          State: {"current_speaker_state" : "off"}
+
+EventType:
+  Person_Entry
+  Person_Leave
+        
