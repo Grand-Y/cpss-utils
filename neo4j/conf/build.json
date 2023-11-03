@@ -1,0 +1,977 @@
+{
+    "Lab": {
+      "State": {
+        "Temperature": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Brightness": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Humidity": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Noise": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "AirQuality": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "HumanState": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        }
+      },
+      "adjacentTo": ["Corridor"],
+      "Device": {
+        "AC001_AC": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_cooling_down",
+                "value": "Lab.Temperature.ext_action_lower",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Window001_Window": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "Lab.Temperature.ext_action_lower",
+                  "PreCondition": "Lab.Temperature > Context.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "Lab.Temperature.ext_action_higher",
+                  "PreCondition": "Lab.Temperature < Context.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "Lab.Humidity.ext_action_lower",
+                  "PreCondition": "Lab.Humidity > Context.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "Lab.Humidity.ext_action_higher",
+                  "PreCondition": "Lab.Humidity < Context.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Door001_Door": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "Lab.Temperature.ext_action_lower",
+                  "PreCondition": "Lab.Temperature > Corridor.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "Lab.Temperature.ext_action_higher",
+                  "PreCondition": "Lab.Temperature < Corridor.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "Lab.Humidity.ext_action_lower",
+                  "PreCondition": "Lab.Humidity > Corridor.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "Lab.Humidity.ext_action_higher",
+                  "PreCondition": "Lab.Humidity < Corridor.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Humidifier001_Humidifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_humidity_up",
+                "value": "Lab.Humidity.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "AirPurifier001_AirPurifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_air_quality_up",
+                "value": "Lab.AirQuality.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Printer001_Printer": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_noise_up",
+                "value": "Lab.Noise.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_noise_down",
+                "value": "Lab.Noise.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "Heater001_Heater": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_warming_up",
+                "value": "Lab.Temperature.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Curtain001_Curtain": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_light_up",
+                  "value": "Lab.brightness.ext_action_higher",
+                  "PreCondition": "Lab.Brightness < Context.Brightness"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": [
+                {
+                  "name": "effect_light_down",
+                  "value": "Lab.brightness.ext_action_lower",
+                  "PreCondition": "Lab.Brightness < Context.Brightness"
+                }
+              ]
+            }
+          }
+        },
+        "Light001_Light": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_lighting_up",
+                "value": "Lab.Brightness.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_lighting_down",
+                "value": "Lab.Brightness.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "MeetingRoomOne": {
+      "State": {
+        "Temperature": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Brightness": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Humidity": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Noise": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "AirQuality": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "HumanState": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        }
+      },
+      "adjacentTo": ["TeaRoom"],
+      "Device": {
+        "Light001_Light": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_lighting_up",
+                "value": "MeetingRoomOne.Brightness.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_lighting_down",
+                "value": "MeetingRoomOne.Brightness.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "AC001_AC": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_cooling_down",
+                "value": "MeetingRoomOne.Temperature.ext_action_lower",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Window001_Window": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "MeetingRoomOne.Temperature.ext_action_lower",
+                  "PreCondition": "MeetingRoomOne.Temperature > Context.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "MeetingRoomOne.Temperature.ext_action_higher",
+                  "PreCondition": "MeetingRoomOne.Temperature < Context.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "MeetingRoomOne.Humidity.ext_action_lower",
+                  "PreCondition": "MeetingRoomOne.Humidity > Context.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "MeetingRoomOne.Humidity.ext_action_higher",
+                  "PreCondition": "MeetingRoomOne.Humidity < Context.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Door001_Door": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "MeetingRoomOne.Temperature.ext_action_lower",
+                  "PreCondition": "MeetingRoomOne.Temperature > TeaRoom.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "MeetingRoomOne.Temperature.ext_action_higher",
+                  "PreCondition": "MeetingRoomOne.Temperature < TeaRoom.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "MeetingRoomOne.Humidity.ext_action_lower",
+                  "PreCondition": "MeetingRoomOne.Humidity > TeaRoom.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "MeetingRoomOne.Humidity.ext_action_higher",
+                  "PreCondition": "MeetingRoomOne.Humidity < TeaRoom.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Humidifier001_Humidifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_humidity_up",
+                "value": "MeetingRoomOne.Humidity.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "AirPurifier001_AirPurifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_air_quality_up",
+                "value": "MeetingRoomOne.AirQuality.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "TV001_TV": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_noise_up",
+                "value": "MeetingRoomOne.Noise.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_noise_down",
+                "value": "MeetingRoomOne.Noise.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "Heater001_Heater": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_warming_up",
+                "value": "MeetingRoomOne.Temperature.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Curtain001_Curtain": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_light_up",
+                  "value": "MeetingRoomOne.brightness.ext_action_higher",
+                  "PreCondition": "MeetingRoomOne.Brightness < Context.Brightness"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": [
+                {
+                  "name": "effect_light_down",
+                  "value": "MeetingRoomOne.brightness.ext_action_lower",
+                  "PreCondition": "MeetingRoomOne.Brightness < Context.Brightness"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "MeetingRoomTwo": {
+      "State": {
+        "Temperature": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Brightness": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Humidity": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Noise": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "AirQuality": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "HumanState": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        }
+      },
+      "adjacentTo": ["Corridor"],
+      "Device": {
+        "Light001_Light": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_lighting_up",
+                "value": "MeetingRoomTwo.Brightness.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_lighting_down",
+                "value": "MeetingRoomTwo.Brightness.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "AC001_AC": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_cooling_down",
+                "value": "MeetingRoomTwo.Temperature.ext_action_lower",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Window001_Window": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "MeetingRoomTwo.Temperature.ext_action_lower",
+                  "PreCondition": "MeetingRoomTwo.Temperature > Context.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "MeetingRoomTwo.Temperature.ext_action_higher",
+                  "PreCondition": "MeetingRoomTwo.Temperature < Context.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "MeetingRoomTwo.Humidity.ext_action_lower",
+                  "PreCondition": "MeetingRoomTwo.Humidity > Context.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "MeetingRoomTwo.Humidity.ext_action_higher",
+                  "PreCondition": "MeetingRoomTwo.Humidity < Context.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Door001_Door": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "MeetingRoomTwo.Temperature.ext_action_lower",
+                  "PreCondition": "MeetingRoomTwo.Temperature > Corridor.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "MeetingRoomTwo.Temperature.ext_action_higher",
+                  "PreCondition": "MeetingRoomTwo.Temperature < Corridor.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "MeetingRoomTwo.Humidity.ext_action_lower",
+                  "PreCondition": "MeetingRoomTwo.Humidity > Corridor.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "MeetingRoomTwo.Humidity.ext_action_higher",
+                  "PreCondition": "MeetingRoomTwo.Humidity < Corridor.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Humidifier001_Humidifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_humidity_up",
+                "value": "MeetingRoomTwo.Humidity.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "AirPurifier001_AirPurifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_air_quality_up",
+                "value": "MeetingRoomTwo.AirQuality.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "TV001_TV": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_noise_up",
+                "value": "MeetingRoomTwo.Noise.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_noise_down",
+                "value": "MeetingRoomTwo.Noise.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "Heater001_Heater": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_warming_up",
+                "value": "MeetingRoomTwo.Temperature.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Curtain001_Curtain": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_light_up",
+                  "value": "MeetingRoomTwo.brightness.ext_action_higher",
+                  "PreCondition": "MeetingRoomTwo.Brightness < Context.Brightness"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": [
+                {
+                  "name": "effect_light_down",
+                  "value": "MeetingRoomTwo.brightness.ext_action_lower",
+                  "PreCondition": "MeetingRoomTwo.Brightness < Context.Brightness"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "TeaRoom": {
+      "State": {
+        "Temperature": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Brightness": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Humidity": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Noise": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "AirQuality": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "HumanState": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        }
+      },
+      "adjacentTo": ["Corridor", "MeetingRoomOne"],
+      "Device": {
+        "Light001_Light": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_lighting_up",
+                "value": "TeaRoom.Brightness.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_lighting_down",
+                "value": "TeaRoom.Brightness.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "AC001_AC": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_cooling_down",
+                "value": "TeaRoom.Temperature.ext_action_lower",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Window001_Window": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "TeaRoom.Temperature.ext_action_lower",
+                  "PreCondition": "TeaRoom.Temperature > Context.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "TeaRoom.Temperature.ext_action_higher",
+                  "PreCondition": "TeaRoom.Temperature < Context.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "TeaRoom.Humidity.ext_action_lower",
+                  "PreCondition": "TeaRoom.Humidity > Context.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "TeaRoom.Humidity.ext_action_higher",
+                  "PreCondition": "TeaRoom.Humidity < Context.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Door001_Door": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_cooling_down",
+                  "value": "TeaRoom.Temperature.ext_action_lower",
+                  "PreCondition": "TeaRoom.Temperature > Corridor.Temperature"
+                },
+                {
+                  "name": "effect_warming_up",
+                  "value": "TeaRoom.Temperature.ext_action_higher",
+                  "PreCondition": "TeaRoom.Temperature < Corridor.Temperature"
+                },
+                {
+                  "name": "effect_humidity_down",
+                  "value": "TeaRoom.Humidity.ext_action_lower",
+                  "PreCondition": "TeaRoom.Humidity > Corridor.Humidity"
+                },
+                {
+                  "name": "effect_humidity_up",
+                  "value": "TeaRoom.Humidity.ext_action_higher",
+                  "PreCondition": "TeaRoom.Humidity < Corridor.Humidity"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": []
+            }
+          }
+        },
+        "Humidifier001_Humidifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_humidity_up",
+                "value": "TeaRoom.Humidity.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "AirPurifier001_AirPurifier": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_air_quality_up",
+                "value": "TeaRoom.AirQuality.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "WaterDispenser001_WaterDispenser": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {}
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Heater001_Heater": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_warming_up",
+                "value": "TeaRoom.Temperature.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Curtain001_Curtain": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": [
+                {
+                  "name": "effect_light_up",
+                  "value": "TeaRoom.brightness.ext_action_higher",
+                  "PreCondition": "TeaRoom.Brightness < Context.Brightness"
+                }
+              ]
+            },
+            "action_off": {
+              "Effect": [
+                {
+                  "name": "effect_light_down",
+                  "value": "TeaRoom.brightness.ext_action_lower",
+                  "PreCondition": "TeaRoom.Brightness < Context.Brightness"
+                }
+              ]
+            }
+          }
+        },
+        "Microwave_Oven001_Microwave_Oven": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {}
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        }
+      }
+    },
+    "Corridor": {
+      "State": {
+        "Temperature": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Brightness": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Humidity": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "Noise": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "AirQuality": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        },
+        "HumanState": {
+          "value": 0,
+          "Action": ["ext_action_lower", "ext_action_higher"]
+        }
+      },
+      "adjacentTo": ["MeetingRoomTwo", "Lab", "TeaRoom"],
+      "Device": {
+        "AC001_AC": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_cooling_down",
+                "value": "Corridor.Temperature.ext_action_lower",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {}
+            }
+          }
+        },
+        "Light001_Light": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_lighting_up",
+                "value": "Corridor.Brightness.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_lighting_down",
+                "value": "Corridor.Brightness.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        },
+        "Speaker001_Speaker": {
+          "state": 0,
+          "Action": {
+            "action_on": {
+              "Effect": {
+                "name": "effect_noise_up",
+                "value": "Corridor.Noise.ext_action_higher",
+                "PreCondition": ""
+              }
+            },
+            "action_off": {
+              "Effect": {
+                "name": "effect_noise_down",
+                "value": "Corridor.Noise.ext_action_lower",
+                "PreCondition": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "Context": {
+        "State": {
+          "Temperature": {
+            "value": 0,
+            "Action": ["ext_action_lower", "ext_action_higher"]
+          },
+          "Brightness": {
+            "value": 0,
+            "Action": ["ext_action_lower", "ext_action_higher"]
+          },
+          "Humidity": {
+            "value": 0,
+            "Action": ["ext_action_lower", "ext_action_higher"]
+          },
+          "AirQuality": {
+            "value": 0,
+            "Action": ["ext_action_lower", "ext_action_higher"]
+          },
+          "Weather": {
+            "value": "raining",
+            "Action": ["ext_action_change"]
+          }
+        }
+      }
+}

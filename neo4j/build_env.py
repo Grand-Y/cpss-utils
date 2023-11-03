@@ -6,8 +6,9 @@ import yaml
 
 
 # SERVER = "http://10.176.34.90:9310/perceptionEvent/updateDatabase"
-graph = Graph('http://localhost:7474', auth=('neo4j', '123456'))
-ENV_PATH = "./conf/build_env.json"
+graph = Graph('http://10.177.29.226/:7474', auth=('neo4j', '12345678'), name="neo4j")
+queue = []
+ENV_PATH = "./conf/build.json"
 EVENT_PATH= "./conf/eventType.txt"
 
 def read_json_all(path):
@@ -18,8 +19,6 @@ def read_json_all(path):
             return data
     except:
         return None
-
-
 
 def delete_all(graph):
     graph.run("match (n) detach delete n")
@@ -50,89 +49,147 @@ def build_origin(graph):
         relationship = Relationship(node_1, i[1], node_2, relationID=snowflake.client.get_guid())
         graph.create(relationship)
 
+def build_context(graph, state):
+    context_node = Node("Space", name="Context")
+    graph.create(context_node)
+    for i in state:
+        state_node = Node("ContextState", name=i, room="Context", value=state[i]["value"])
+        graph.create(state_node)
+        # state_node = get_node_by_name(i)
+        graph.create(Relationship(context_node, "HAS", state_node))
+
+        for j in state[i]["Action"]:
+            action_node = Node("Action", name=j)
+            graph.create(action_node)
+            graph.create(Relationship(state_node, "CAN", action_node))
+
 def node_exist(name):
     return len(graph.run("MATCH (n:Concept) WHERE n.name='" + name + "' RETURN n").data()) > 0
 
 def get_node_by_name(name):
     return graph.run("MATCH (n) WHERE n.name='" + name + "' RETURN n").data()[0]['n']
 
-def get_concept_node(name):
-    if not node_exist(name):
-        node = Node("Concept", name=name, uuid=snowflake.client.get_guid())
-        graph.create(node)
-        return node
-    return get_node_by_name(name)
+def create_room_node(data, room_name):
+    room_node = Node("Space", name=room_name)
+    graph.create(room_node)
+    # room_node = get_node_by_name(room_name)
 
-def room_node_create(concept, data, name):
-    property = data["property"]
-    state = data["state"]
-    return Node(concept, property=json.dumps(property), state=json.dumps(state), name=name, type=concept, uuid=snowflake.client.get_guid())
+    state = data["State"]
+    for i in state:
+        state_node = Node("EnvState", name=i, room=room_name, value=state[i]["value"])
+        graph.create(state_node)
+        # state_node = get_node_by_name(i)
+        graph.create(Relationship(room_node, "HAS", state_node))
 
-def device_node_create(concept, data, name):
-    d_node = None
-    if data.get("action") == None:
-        d_node = Node(concept, property=json.dumps(data["property"]), state=json.dumps(data["state"]), name=name, type=concept, uuid=snowflake.client.get_guid())
-    else: 
-        actions = data["action"]
-        d_node = Node(concept, action=json.dumps(data["action"]), property=json.dumps(data["property"]), state=json.dumps(data["state"]), name=name, type=concept, uuid=snowflake.client.get_guid())
-        for i in actions:
-            action_name = i
-            if not node_exist(action_name):
-                action_node = get_concept_node(action_name)
-                Action = get_node_by_name("Action")
-                graph.create(Relationship(action_node, "subclassOf", Action, relationID=snowflake.client.get_guid()))
-            action_node = get_node_by_name(action_name)
-            graph.create(Relationship(d_node, "hasAction", action_node, relationID=snowflake.client.get_guid()))
+        for j in state[i]["Action"]:
+            action_node = Node("Action", name=j)
+            graph.create(action_node)
+            graph.create(Relationship(state_node, "CAN", action_node))
+    return room_node
+
+def create_device_node(concept, data, name, room_name):
+    actions = data["Action"]
+    device_node = Node("Device", name=name, type=concept, state=data["state"])
+    graph.create(device_node)
+    for i in actions:
+        action_name = i
+        action_node = Node("Action", name=action_name)
+        graph.create(action_node)
+        graph.create(Relationship(device_node, "CAN", action_node))
         
-    concept_node = get_concept_node(concept)
-    graph.create(Relationship(concept_node, "subclassOf", get_node_by_name("Device"), relationID=snowflake.client.get_guid()))
-    graph.create(Relationship(d_node, "isA", concept_node, relationID=snowflake.client.get_guid()))
-    return d_node
+        
+        # print(actions[i]["Effect"]['name'])
+        if len(actions[i]["Effect"]) == 0:
+            continue
+        if isinstance(actions[i]["Effect"], dict):
+            print(actions[i]["Effect"]['name'])
 
+            effect_name = actions[i]["Effect"]['name']
+            pre_condition = actions[i]["Effect"]['PreCondition']
+            effect_node = Node("Effect", name=effect_name, room=room_name, device=name, value=actions[i]["Effect"]['value'], pre_condition=pre_condition)
+            graph.create(effect_node)
+            graph.create(Relationship(action_node, "HAS", effect_node))
+
+            if pre_condition == "":
+                continue
+            conditions = []
+            if ">" in pre_condition:
+                conditions = pre_condition.split(" > ")
+            elif "<" in pre_condition:
+                conditions = pre_condition.split(" < ")
+            elif "=" in pre_condition:
+                conditions = pre_condition.split(" = ")
+            else:
+                continue
+                
+            queue.append(effect_node, "DEPENDING_ON", conditions[0])
+            queue.append(effect_node, "DEPENDING_ON", conditions[1])
+        else :
+            for j in actions[i]["Effect"]:
+                print(j)
+
+                effect_name = j['name']
+                pre_condition =j['PreCondition']
+                effect_node = Node("Effect", name=effect_name, room=room_name, device=name, value=j['value'], pre_condition=pre_condition)
+                graph.create(effect_node)
+                graph.create(Relationship(action_node, "HAS", effect_node))
+
+                if pre_condition == "":
+                    continue
+                conditions = []
+                if ">" in pre_condition:
+                    conditions = pre_condition.split(" > ")
+                elif "<" in pre_condition:
+                    conditions = pre_condition.split(" < ")
+                elif "=" in pre_condition:
+                    conditions = pre_condition.split(" = ")
+                else:
+                    continue
+                    
+                queue.append([effect_node, "DEPENDING_ON", conditions[0]])
+                queue.append([effect_node, "DEPENDING_ON", conditions[1]])
+        
+
+    return device_node
 
 def buid_env(graph):
     graph.run("match (n) detach delete n")
-    build_origin(graph)
-
-    queue = []
+    # build_origin(graph)
 
     f = read_json_all(ENV_PATH)
     for i in f:
-        concept_node = get_concept_node(i)
-        graph.create(Relationship(concept_node, "subclassOf", get_node_by_name("Space"), relationID=snowflake.client.get_guid()))
+        if i == "Context":
+            build_context(graph, f[i]["State"])
+            continue
 
-        for j in f[i]:
-            name = j
-            room_node = room_node_create(i, f[i][j], name)
-            
+        name = i
+        room_node = create_room_node(f[i], name)
 
-            graph.create(Relationship(room_node, "isA", concept_node, relationID=snowflake.client.get_guid()))
+        if f[i]["adjacentTo"] != None:
+            for k in f[i]["adjacentTo"]:
+                a_name = k
+                queue.append([name, "ADJACENT_TO", a_name])
 
-            if f[i][j]["adjacentTo"] != None:
-                for k in f[i][j]["adjacentTo"].split():
-                    a_name = k
-                    queue.append([name, "adjacentTo", a_name])
-
-            if f[i][j]["reachableTo"] != None:
-                for k in f[i][j]["reachableTo"].split():
-                    r_name = k
-                    queue.append([name, "reachableTo", r_name])
-
-            
-            if f[i][j]["Device"] != None:
-                for k in f[i][j]["Device"]:
-                    d_name = k.split("_")[0]
-                    d_node = device_node_create(k.split("_")[1], f[i][j]["Device"][k], d_name)
-                    graph.create(Relationship(d_node, "deployedIn", room_node, relationID=snowflake.client.get_guid()))
+        
+        if f[i]["Device"] != None:
+            for k in f[i]["Device"]:
+                device_name = k.split("_")[0]
+                device_node = create_device_node(k.split("_")[1], f[i]["Device"][k], device_name, name)
+                graph.create(Relationship(device_node, "BELONG_TO", room_node))
 
     print(queue)
     for i in queue:
-        print(i[0])
-        node_1 = get_node_by_name(i[0])
-        node_2 = get_node_by_name(i[2])
-        relationship = Relationship(node_1, i[1], node_2, relationID=snowflake.client.get_guid())
-        graph.create(relationship)
-
+        if len(i[2].split(".")) == 1:
+            node_1 = get_node_by_name(i[0])
+            node_2 = get_node_by_name(i[2])
+            relationship = Relationship(node_1, i[1], node_2)
+            graph.create(relationship)
+        else:
+            print(i[2].split("."))
+            print(graph.run("MATCH (m)-[r:HAS]->(n) WHERE m.name='" + i[2].split(".")[0] + "' and n.name='" + i[2].split(".")[1] + "' RETURN n").data()[0])
+            node_1 = graph.run("MATCH (m)-[r:HAS]->(n) WHERE m.name='" + i[2].split(".")[0] + "' and n.name='" + i[2].split(".")[1] + "' RETURN n").data()[0]['n']
+            relationship = Relationship(i[0], i[1], node_1)
+            graph.create(relationship)
 
 def build_event(graph, path):
     try:
@@ -149,6 +206,7 @@ def build_event(graph, path):
 
 
 if __name__ == '__main__':
+    # delete_all(graph)
     buid_env(graph)
-    build_event(graph, EVENT_PATH)
+    # build_event(graph, EVENT_PATH)
                 
